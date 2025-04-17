@@ -1,0 +1,53 @@
+.pre-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2B2A2A;
+    height: 45px;
+    padding: 0 40px;
+    color: white;
+    font-family: sans-serif;
+    font-size: 14px;
+  
+    .left-side {
+      display: flex;
+      gap: 30px;
+  
+      .info {
+        display: flex;
+        align-items: center;
+        color: #65901B;
+        cursor: pointer;
+        transition: color 0.3s ease;
+  
+        .icon {
+          font-size: 18px;
+          margin-right: 8px;
+        }
+  
+        &:hover {
+          color: #A6CE39;
+        }
+      }
+    }
+  
+    .right-side {
+      display: flex;
+      gap: 15px;
+  
+      .social {
+        color: #65901B;
+        cursor: pointer;
+        transition: color 0.3s ease;
+  
+        .icon {
+          font-size: 20px;
+        }
+  
+        &:hover {
+          color: #A6CE39;
+        }
+      }
+    }
+  }
+  
