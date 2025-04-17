@@ -1,4 +1,0 @@
-npm i --global npx
-npx create-react-app ./
-npm i react-router-dom sass
-nm ou npm start
