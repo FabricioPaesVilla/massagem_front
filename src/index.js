@@ -5,9 +5,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import Home from "./pages/home";
 import Agendamento from "./pages/agendamentoSessao";
-import Cadastro from "./pages/cadastro";
-import Login from "./pages/login";
 import NotFound from "./pages/notfound";
+import Login from './pages/login';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -15,9 +14,10 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/agendamentoSessao" element={<Agendamento />} />
-        <Route path="/cadastro" element={<Cadastro />} />
+        <Route path="/agenda" element={<Agendamento />} />
         <Route path="/login" element={<Login />} />
+      
+        
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

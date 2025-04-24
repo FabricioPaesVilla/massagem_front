@@ -1,0 +1,167 @@
+/* Container principal */
+.agenda-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #2c2c2c;
+  }
+  
+  /* Cabeçalho */
+  .agenda-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .agenda-header h2 {
+    font-size: 1.8rem;
+    margin: 0;
+  }
+  
+  /* Cartões de período (manhã, tarde, noite) */
+  .period-card {
+    border: 1px solid #d4c9a4;
+    border-radius: 8px;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    background: #fffbe9;
+  }
+  
+  .period-title {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    background: #f6e4ab;
+    border-radius: 8px 8px 0 0;
+    font-weight: 600;
+  }
+  
+  .period-title .range {
+    font-size: 0.9rem;
+    color: #5e5e5e;
+  }
+  
+  /* Tabela */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+  
+  td {
+    padding: 0.6rem 1rem;
+  }
+  
+  tr:not(:last-child) {
+    border-bottom: 1px solid #eadfb3;
+  }
+  
+  .time-col {
+    width: 80px;
+    font-weight: 600;
+  }
+  
+  .actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.85rem;
+    text-decoration: underline;
+    margin-left: 0.75rem;
+  }
+  
+  .actions .remove {
+    color: #b03232;
+  }
+  
+  .empty {
+    text-align: center;
+    font-style: italic;
+    padding: 1rem;
+  }
+  
+  /* Botão de novo agendamento */
+  .new-btn {
+    display: block;
+    margin: 2rem auto 0;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    background: #d4b96b;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .new-btn:hover {
+    background: #c7a956;
+  }
+  
+  /* === Dialog simples === */
+  .dialog-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .dialog {
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    width: 320px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .dialog h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+  
+  .dialog label {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .dialog input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 0.25rem;
+  }
+  
+  .dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  
+  .dialog-actions button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .dialog-actions button[type=\"button\"] {
+    background: #e0e0e0;
+  }
+  
+  .dialog-actions button[type=\"submit\"] {
+    background: #d4b96b;
+    color: #fff;
+  }
+  
+  .dialog-actions button[type=\"submit\"]:hover {
+    background: #c7a956;
+  }
+  
