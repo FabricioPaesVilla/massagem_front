@@ -6,6 +6,7 @@ import "./index.css";
 import Home from "./pages/home";
 import Agendamento from "./pages/agendamentoSessao";
 import NotFound from "./pages/notfound";
+import Admin from "./admin";
 import Login from './pages/login';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -14,6 +15,7 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/admin" element={<Admin />} />
         <Route path="/agenda" element={<Agendamento />} />
         <Route path="/login" element={<Login />} />
       

@@ -13,13 +13,15 @@ export default function Header() {
         </div>
 
         <nav className="menu">
+          <Link to="/">
           <a className="inicio" href="#home">
             Início
           </a>
+          </Link>
           <a href="#massagens">Massagens</a>
           <a href="#contato">Contato</a>
 
-          <Link to="/login">
+          <Link to="/admin">
             <button className="botaoAgendarSessao">
               Agendar Sessão
               <img src={seta} alt="seta" className="seta-icon" />

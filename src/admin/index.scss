@@ -1,0 +1,40 @@
+.admin-container {
+    padding-top: 2rem;
+  }
+  
+  .admin-menu {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    background-color: #fff8ec;
+    padding: 0.8rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+  
+    button {
+      background-color: transparent;
+      border: 2px solid #d1c3ab;
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      font-weight: bold;
+      color: #5a4e3c;
+      cursor: pointer;
+      transition: all 0.3s;
+      
+  
+      &:hover {
+        background-color: #e6dbc7;
+      }
+  
+      &.ativo {
+        background-color: #d1c3ab;
+        color: #3e362a;
+      }
+    }
+  }
+  
