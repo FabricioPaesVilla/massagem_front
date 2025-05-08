@@ -6,4 +6,4 @@ nm ou npm start
 ---------------------------
 
 para intalar a pasta node_modules com suas devidas dependencias é só usar o seguinte comando:
-npm i react-router-dom sass
+npm i react-router-dom sass axios
