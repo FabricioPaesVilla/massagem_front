@@ -9,66 +9,65 @@ export default function ServicosAdmin() {
   const [nome, setNome] = useState('');
   const [descricao, setDescricao] = useState('');
 
-  const handleImagemChange = (e) => {
+  const manipulaImagem = (e) => {
     const file = e.target.files[0];
     if (file) {
       setImagem(URL.createObjectURL(file));
+      setImagemArquivo(e.target.files[0]);
     }
   };
 
-  const handleAplicar = async() => {
+  // Aqui vai a lógica para salvar no backend
+  const salvarMassagem = async () => {
     if (!nome || !descricao || !imagem) {
       alert("Preencha todos os campos.");
       return;
     }
 
-    // Aqui vai a lógica para salvar no backend
 
     try {
-      // 1. Salvar massagem
+
       const massagemRes = await axios.post("http://localhost:5010/massagem", {
         titulo: nome,
-        descricao: descricao,
-        img: imagemArquivo.name, // apenas o nome do arquivo no banco
+        descricao: descricao
       });
 
       const idMassagem = massagemRes.data.id || massagemRes.data.insertId;
 
-      // 2. Enviar imagem (como multipart/form-data)
       const formData = new FormData();
       formData.append("imagem", imagemArquivo);
 
-      await axios.post(`http://localhost:5010/massagem/${idMassagem}/imagem`, formData, {
+      await axios.post(`http://localhost:5010/imagem/${idMassagem}`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
       alert("Massagem cadastrada com sucesso!");
-      // Resetar campos após aplicar
+      /*
       setImagem(null);
       setImagemArquivo(null);
       setNome('');
       setDescricao('');
+      */
     } catch (err) {
       console.error("Erro ao salvar massagem:", err);
       alert("Erro ao salvar massagem.");
-    }
 
-    //--------------
-    console.log({
-      nome,
-      descricao,
-      imagem
-    });
+    }
 
     // Resetar campos após aplicar
     setImagem(null);
+    setImagemArquivo(null);
     setNome('');
     setDescricao('');
   };
 
+  const carregarMassagem = async () =>{
+
+  }
+
   return (
     <div className="servicos-admin">
-      <img src="/logo-irinha.png" alt="Logo Irinha Dias" className="logo" />
+      <img src="/static/media/logo.be150ccfcd6fd86e81b5.png" alt="Logo Irinha Dias" className="logo" />
 
       <div className="upload-area">
         <label htmlFor="upload-img" className="upload-label">
@@ -85,7 +84,7 @@ export default function ServicosAdmin() {
           type="file"
           id="upload-img"
           accept="image/*"
-          onChange={handleImagemChange}
+          onChange={manipulaImagem}
         />
       </div>
 
@@ -103,8 +102,8 @@ export default function ServicosAdmin() {
           onChange={(e) => setDescricao(e.target.value)}
         />
 
-        <button className="carregar-btn">Carregar massagem existente</button>
-        <button className="aplicar-btn" onClick={handleAplicar}>Aplicar</button>
+        <button className="carregar-btn" onClick={carregarMassagem}>Carregar massagem existente</button>
+        <button className="aplicar-btn" onClick={salvarMassagem}>Salvar</button>
       </div>
     </div>
   );
