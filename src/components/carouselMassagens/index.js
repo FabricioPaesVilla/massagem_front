@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import "./index.scss";
+/*
 import relaxamento from "../../images/relaxamento.jpg";
 import drenagem from "../../images/drenagem.jpg";
 import modeladora from "../../images/modeladora.jpg";
@@ -7,7 +8,9 @@ import shiatsu from "../../images/shiatsu.jpg";
 import shirodara from "../../images/shirodara.jpg";
 import liberacaoFacial from "../../images/liberação facial.jpg";
 import desportiva from "../../images/depostiva.jpg";
-
+*/
+import axios from 'axios';
+/*
 const massagens = [
   {
     titulo: "RELAXAMENTO",
@@ -55,6 +58,11 @@ const massagens = [
     imagem: desportiva,
   },
 ];
+*/
+
+const resp = await axios.get("http://localhost:5010/massagem");
+
+const massagem = resp.data;
 
 export default function CarouselMassagens() {
   const carouselRef = useRef(null);
@@ -73,6 +81,32 @@ export default function CarouselMassagens() {
           &#8249;
         </button>
         <div className="carousel" ref={carouselRef}>
+        
+
+
+          {massagem.map((item, index) => (
+            <div className="card" key={index}>
+              <p>{item.descricao}</p>
+
+              <img src={"http://localhost:5010/uploads/" +item.img} alt={item.titulo} />
+
+              <h3>{item.titulo}</h3>
+            </div>
+          ))}
+
+          
+            
+        </div>
+        <button className="nav-btn next" onClick={() => scroll(300)}>
+          &#8250;
+        </button>
+      </div>
+    </section>
+  );
+}
+
+/*
+<div className="carousel" ref={carouselRef}>
           {massagens.map((item, index) => (
             <div className="card" key={index}>
               <p>{item.texto}</p>
@@ -82,11 +116,5 @@ export default function CarouselMassagens() {
               <h3>{item.titulo}</h3>
             </div>
           ))}
-        </div>
-        <button className="nav-btn next" onClick={() => scroll(300)}>
-          &#8250;
-        </button>
-      </div>
-    </section>
-  );
-}
+
+*/

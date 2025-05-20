@@ -10,6 +10,10 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
+const resp = await axios.get("http://localhost:5010/massagem");
+
+const massagem = resp.data;
 export default function Agenda() {
   const [listaAgendamentos, setListaAgendamentos] = useState([]);
   const [dia, setDia] = useState("");
@@ -18,7 +22,7 @@ export default function Agenda() {
   const [endereco, setEndereco] = useState("");
   const [tipo_massagem, setTipo_massagem] = useState("");
   const [idAgendamento, setIdAgendamento] = useState(null);
-  
+
   const [modalVisivel, setModalVisivel] = useState(false);
   const [modalTipo, setModalTipo] = useState("novo");
 
@@ -123,7 +127,7 @@ export default function Agenda() {
           <strong>{titulo}</strong>
           <span className="hora-periodo">{horaTexto}</span>
         </div>
-        
+
         {listaAgendamentos
           .filter((a) => determinarPeriodo(a.hora) === periodo)
           .map((item) => (
@@ -223,7 +227,7 @@ export default function Agenda() {
                   onChange={(e) => setDia(e.target.value)}
                 />
               </label>
-              
+
               <label>
                 Hora:{" "}
                 <input
@@ -255,11 +259,13 @@ export default function Agenda() {
                   value={tipo_massagem}
                   onChange={(e) => setTipo_massagem(e.target.value)}
                 >
-                  <option value="">Selecione</option>
-                  <option value="Relaxante">Relaxante</option>
-                  <option value="Terapêutica">Terapêutica</option>
-                  <option value="Drenagem">Drenagem Linfática</option>
-                  <option value="Modeladora">Modeladora</option>
+
+                  {massagem.map((item, index) => (
+                    <div className="card" key={index}>
+                      <option value={item.titulo}>{item.titulo}</option>
+                    </div>
+                  ))}
+
                 </select>
               </label>
               <button onClick={salvar}>Salvar</button>
