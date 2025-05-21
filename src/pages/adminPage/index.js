@@ -11,9 +11,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 
-const resp = await axios.get("http://localhost:5010/massagem");
+const respMassagem = await axios.get("http://localhost:5010/massagem");
 
-const massagem = resp.data;
+const massagem = respMassagem.data;
 export default function Agenda() {
   const [listaAgendamentos, setListaAgendamentos] = useState([]);
   const [dia, setDia] = useState("");
@@ -48,14 +48,15 @@ export default function Agenda() {
     try {
       const corpo = {
         dia,
-        nome_cliente,
         hora,
         endereco,
         tipo_massagem,
+        nome_cliente,
       };
 
       if (modalTipo === "editar") {
-        const resp = await axios.put(`http://localhost:5010/agenda/${idAgendamento}`, corpo);
+        //const resp =
+        await axios.put(`http://localhost:5010/agenda/${idAgendamento}`, corpo);
         toast.success(`Agendamento editado!`);
       } else {
         const resp = await axios.post("http://localhost:5010/agenda", corpo);
@@ -141,7 +142,7 @@ export default function Agenda() {
                 })}
               </span>
               <span className="nome">
-                <strong>{item.cliente}</strong>
+                <strong>{item.nome_cliente}</strong>
               </span>
               <span>{item.endereço}</span>
               <span>{item.tipo_massagem}</span>

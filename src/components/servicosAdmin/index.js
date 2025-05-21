@@ -3,11 +3,19 @@ import './index.scss';
 import axios from 'axios';
 
 
+const respMassagem = await axios.get("http://localhost:5010/massagem");
+
+const massagem = respMassagem.data;
+
 export default function ServicosAdmin() {
   const [imagem, setImagem] = useState(null);
   const [imagemArquivo, setImagemArquivo] = useState(null);
-  const [nome, setNome] = useState('');
+  const [titulo, setTitulo] = useState('');
   const [descricao, setDescricao] = useState('');
+
+
+  const [modalVisivel, setModalVisivel] = useState(false);
+  const [modalTipo, setModalTipo] = useState("novo");
 
   const manipulaImagem = (e) => {
     const file = e.target.files[0];
@@ -19,7 +27,7 @@ export default function ServicosAdmin() {
 
   // Aqui vai a lógica para salvar no backend
   const salvarMassagem = async () => {
-    if (!nome || !descricao || !imagem) {
+    if (!titulo || !descricao || !imagem) {
       alert("Preencha todos os campos.");
       return;
     }
@@ -28,7 +36,7 @@ export default function ServicosAdmin() {
     try {
 
       const massagemRes = await axios.post("http://localhost:5010/massagem", {
-        titulo: nome,
+        titulo: titulo,
         descricao: descricao
       });
 
@@ -57,13 +65,55 @@ export default function ServicosAdmin() {
     // Resetar campos após aplicar
     setImagem(null);
     setImagemArquivo(null);
-    setNome('');
+    setTitulo('');
     setDescricao('');
   };
 
   const carregarMassagem = async () => {
 
   }
+
+  function Cancelar() {
+    setModalVisivel(false);
+  }
+
+  const Excluir = async () => {
+    setModalVisivel(false);
+
+    try {
+      const massagemRes = await axios.get("http://localhost:5010/massagem", {
+        params: {
+          titulo: titulo
+        }
+      });
+      const idMassagem = massagemRes.data.id || massagemRes.data.insertId;
+  
+      await axios.delete(`http://localhost:5010/imagem/${idMassagem}`);
+      await axios.delete(`http://localhost:5010/massagem/${idMassagem}`);
+  
+      setTitulo('');
+      
+    } catch (err) {
+      console.log("Erro ao salvar massagem:", err);
+      alert(err);
+      throw err;
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   return (
     <div className="servicos-admin">
@@ -92,8 +142,8 @@ export default function ServicosAdmin() {
         <input
           type="text"
           placeholder="Massagem..*"
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
+          value={titulo}
+          onChange={(e) => setTitulo(e.target.value)}
         />
         <input
           type="text"
@@ -102,10 +152,43 @@ export default function ServicosAdmin() {
           onChange={(e) => setDescricao(e.target.value)}
         />
 
-        <button className="carregar-btn" onClick={carregarMassagem}>Carregar massagem existente</button>
         <button className="aplicar-btn" onClick={salvarMassagem}>Salvar</button>
+        <button className="carregar-btn" onClick={() => { carregarMassagem(); setModalVisivel(true); setModalTipo("existente"); }}>Excluir massagem existente</button>
 
-        
+        {modalVisivel && (
+          <div className="modal">
+            <div className="modal-content">
+              <span className="close" onClick={() => setModalVisivel(false)}>
+                &times;
+              </span>
+              <h3>
+                {modalTipo === "existente" ? "excluir massagem" : "excluir massagem"}
+              </h3>
+              <label>
+                Tipo de Massagem:
+                <select
+                  value={titulo}
+                  onChange={(e) => setTitulo(e.target.value)}
+                >
+
+                  {massagem.map((item, index) => (
+                    <div className="card" key={index}>
+                      <option value={item.titulo}>{item.titulo}</option>
+                    </div>
+                  ))}
+
+                </select>
+              </label>
+              <button onClick={Excluir}>Excluir</button>
+              <button onClick={Cancelar}>Cancelar</button>
+            </div>
+          </div>
+        )}
+
+
+
+
+
       </div>
     </div>
   );
