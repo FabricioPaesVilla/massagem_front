@@ -11,9 +11,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 
-const respMassagem = await axios.get("http://localhost:5010/massagem");
+const resp = await axios.get("http://localhost:5010/massagem");
 
-const massagem = respMassagem.data;
+const massagem = resp.data;
 export default function Agenda() {
   const [listaAgendamentos, setListaAgendamentos] = useState([]);
   const [dia, setDia] = useState("");
@@ -48,15 +48,14 @@ export default function Agenda() {
     try {
       const corpo = {
         dia,
+        nome_cliente,
         hora,
         endereco,
         tipo_massagem,
-        nome_cliente,
       };
 
       if (modalTipo === "editar") {
-        //const resp =
-        await axios.put(`http://localhost:5010/agenda/${idAgendamento}`, corpo);
+         await axios.put(`http://localhost:5010/agenda/${idAgendamento}`, corpo);
         toast.success(`Agendamento editado!`);
       } else {
         const resp = await axios.post("http://localhost:5010/agenda", corpo);
@@ -144,7 +143,7 @@ export default function Agenda() {
               <span className="nome">
                 <strong>{item.nome_cliente}</strong>
               </span>
-              <span>{item.endereço}</span>
+              <span>{item.endereco}</span>
               <span>{item.tipo_massagem}</span>
 
               {/* Botões de Editar e Excluir*/}
@@ -154,7 +153,7 @@ export default function Agenda() {
                   onClick={() => {
                     setModalVisivel(true);
                     setModalTipo("editar");
-                    setIdAgendamento(item.id);
+                    setIdAgendamento(item.id_agenda);
                     setDia(item.dia);
                     setHora(item.hora);
                     setNome_cliente(item.nome_cliente);
@@ -166,7 +165,7 @@ export default function Agenda() {
                 </button>
                 <button
                   className="excluir"
-                  onClick={() => excluir(item.id)}
+                  onClick={() => excluir(item.id_agenda)}
                 >
                   Excluir
                 </button>

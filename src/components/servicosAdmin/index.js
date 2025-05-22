@@ -13,6 +13,8 @@ export default function ServicosAdmin() {
   const [titulo, setTitulo] = useState('');
   const [descricao, setDescricao] = useState('');
 
+  const [id_massagem, setId_massagem] = useState(null);
+
 
   const [modalVisivel, setModalVisivel] = useState(false);
   const [modalTipo, setModalTipo] = useState("novo");
@@ -77,29 +79,21 @@ export default function ServicosAdmin() {
     setModalVisivel(false);
   }
 
-  const Excluir = async () => {
-    setModalVisivel(false);
 
+
+async function excluir(id) {
     try {
-      const massagemRes = await axios.get("http://localhost:5010/massagem", {
-        params: {
-          titulo: titulo
-        }
-      });
-      const idMassagem = massagemRes.data.id || massagemRes.data.insertId;
-  
-      await axios.delete(`http://localhost:5010/imagem/${idMassagem}`);
-      await axios.delete(`http://localhost:5010/massagem/${idMassagem}`);
-  
-      setTitulo('');
-      
-    } catch (err) {
-      console.log("Erro ao salvar massagem:", err);
-      alert(err);
-      throw err;
+      await axios.delete(`http://localhost:5010/imagem/${id}`);
+      await axios.delete(`http://localhost:5010/massagem/${id}`);
+
+      setId_massagem(null);
+
+      setModalVisivel(false)
+    } catch (error) {
+      console.error("Erro ao excluir agendamento");
+      console.error(error);
     }
   }
-
 
 
 
@@ -167,19 +161,28 @@ export default function ServicosAdmin() {
               <label>
                 Tipo de Massagem:
                 <select
-                  value={titulo}
-                  onChange={(e) => setTitulo(e.target.value)}
+                  value={id_massagem}
+                  onChange={
+                    //(e) => setTitulo(e.target.value)
+                    (e) => setId_massagem(e.target.value)
+                  }
                 >
 
                   {massagem.map((item, index) => (
+                    /*
                     <div className="card" key={index}>
-                      <option value={item.titulo}>{item.titulo}</option>
+                      <option value={item.id_massagem}>{item.titulo}</option>
                     </div>
+                    */
+                    <option key={index} value={item.id_massagem}>
+                      {item.titulo}
+                    </option>
+
                   ))}
 
                 </select>
               </label>
-              <button onClick={Excluir}>Excluir</button>
+              <button onClick={() => excluir(id_massagem)}>Excluir</button>
               <button onClick={Cancelar}>Cancelar</button>
             </div>
           </div>
